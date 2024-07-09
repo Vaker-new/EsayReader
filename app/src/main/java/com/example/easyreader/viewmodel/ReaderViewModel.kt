@@ -15,6 +15,7 @@ class ReaderViewModel(private val readerDao: ReaderDao, private val wordDao: Wor
 
     val articleLiveData: MutableLiveData<List<Article>> = MutableLiveData()
     val wordLiveData: MutableLiveData<List<Word>> = MutableLiveData()
+    var wordList: MutableList<Word> = mutableListOf()
 
     /**
      * 批量插入文章数据
@@ -48,7 +49,8 @@ class ReaderViewModel(private val readerDao: ReaderDao, private val wordDao: Wor
      */
     fun getAllWord() {
         viewModelScope.launch(Dispatchers.IO) {
-            wordLiveData.postValue(wordDao.getAllWord())
+            wordList = wordDao.getAllWord()
+//            wordLiveData.postValue(wordDao.getAllWord())
         }
     }
 }

@@ -31,6 +31,7 @@ class EasyReaderApplication : Application() {
                         ReaderViewModelFactory(database.readerDao(), database.wordDao()).create(
                             ReaderViewModel::class.java
                         )
+                    //读取json文件存入数据库
                     file2JsonStr("Articles.json")?.let {
                         viewModel.insertArticles(jsonStr2ArticleList(it))
                     }

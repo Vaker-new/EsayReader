@@ -3,18 +3,26 @@ package com.example.easyreader.ui
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,10 +42,17 @@ import com.example.easyreader.ui.theme.Black22
 import com.example.easyreader.ui.theme.Black33
 import com.example.easyreader.ui.theme.Green40
 import com.example.easyreader.ui.theme.Green80
+import com.example.easyreader.ui.theme.GreenTheme
 import com.example.easyreader.ui.theme.White
 
 @Composable
-fun ArticleDetail(title: String, content: AnnotatedString, onBackClick: () -> Unit, onWordClick: (Int) -> Unit) {
+fun ArticleDetail(
+    title: String,
+    content: AnnotatedString,
+    onBackClick: () -> Unit,
+    onWordClick: (Int) -> Unit,
+    onHighlightClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .background(
@@ -54,7 +69,7 @@ fun ArticleDetail(title: String, content: AnnotatedString, onBackClick: () -> Un
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Header(onBackClick = onBackClick)
-        ArticleContent(title, content, onWordClick = onWordClick)
+        ArticleContent(title, content, onWordClick = onWordClick, onHighlightClick = onHighlightClick)
     }
 }
 
@@ -82,7 +97,12 @@ fun Header(onBackClick: () -> Unit) {
 }
 
 @Composable
-fun ArticleContent(title: String, content: AnnotatedString, onWordClick: (Int) -> Unit) {
+fun ArticleContent(
+    title: String,
+    content: AnnotatedString,
+    onWordClick: (Int) -> Unit,
+    onHighlightClick: () -> Unit
+) {
     Surface(
         shape = RoundedCornerShape(8.dp),
         color = White,
@@ -107,7 +127,7 @@ fun ArticleContent(title: String, content: AnnotatedString, onWordClick: (Int) -
             ClickableText(
                 text = content,
                 style = TextStyle(
-                    textAlign = TextAlign.Justify,
+                    textAlign = TextAlign.Justify, //使用该属性可使文本左右对齐，但是会导致某些单词点击位置判断错误
                     fontSize = 18.sp,
                     color = Black33,
                     lineHeight = 28.sp
@@ -117,6 +137,25 @@ fun ArticleContent(title: String, content: AnnotatedString, onWordClick: (Int) -
                     onWordClick(offset)
                 }
             )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            FloatingActionButton(
+                onClick = {
+                    onHighlightClick()
+                },
+                shape = CircleShape,
+                contentColor = GreenTheme,
+                containerColor = White,
+                modifier = Modifier.size(50.dp),
+            ) {
+                Icon(Icons.Rounded.Star, contentDescription = "Localized description")
+            }
         }
     }
 }
