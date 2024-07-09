@@ -174,7 +174,7 @@ class ArticleDetailActivity : ComponentActivity() {
     /**
      * 查找所有匹配的单词
      */
-    fun findAllOccurrences(input: String, searchTerm: String): List<Pair<Int, Int>> {
+    private fun findAllOccurrences(input: String, searchTerm: String): List<Pair<Int, Int>> {
         val occurrences = mutableListOf<Pair<Int, Int>>()
         var startIndex = 0
 
