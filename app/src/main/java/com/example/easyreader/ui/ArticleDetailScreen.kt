@@ -115,7 +115,7 @@ fun ArticleContent(
         ) {
             Text(
                 text = title,
-                fontSize = 20.sp,
+                fontSize = 22.sp,
                 color = Black33,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -125,10 +125,10 @@ fun ArticleContent(
             ClickableText(
                 text = content,
                 style = TextStyle(
-                    textAlign = TextAlign.Justify, //使用该属性可使文本左右对齐，但是会导致某些单词点击位置判断错误
-                    fontSize = 18.sp,
+//                    textAlign = TextAlign.Justify, //使用该属性可使文本左右对齐，但是会导致某些单词点击位置判断错误
+                    fontSize = 20.sp,
                     color = Black33,
-                    lineHeight = 28.sp
+                    lineHeight = 28.sp,
                 ),
                 onClick = { offset ->
                     Log.d("TAG", "offset: $offset")
